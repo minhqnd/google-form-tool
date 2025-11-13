@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Google Form Extractor",
+  "version": "1.0",
+  "description": "Extract questions and options from Google Forms and log to console",
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["https://docs.google.com/forms/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
