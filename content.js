@@ -5,7 +5,7 @@ const GEMINI_API_KEY = 'AIzaSyD1v1RYEGcuqIB6Z0D9bf5DYeit1INl5RU'; // Replace wit
 async function sendToGemini(question, options) {
   const prompt = `Câu hỏi: ${question}\nTùy chọn: ${options.join(', ')}\nHãy chọn đáp án đúng và giải thích ngắn gọn.`;
 
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -58,6 +58,23 @@ function extractFormData() {
         try {
           const geminiResponse = await sendToGemini(questionText, options);
           console.log('  Gemini Response:', geminiResponse);
+          
+          // Parse the response
+          const parsedResponse = JSON.parse(geminiResponse);
+          const correctAnswer = parsedResponse.answer.trim();
+          console.log('  Correct Answer:', correctAnswer);
+          
+          // Find and click the correct option
+          const optionDivs = container.querySelectorAll('.Od2TWd.hYsg7c');
+          for (const div of optionDivs) {
+            const dataValue = div.getAttribute('data-value');
+            const ariaLabel = div.getAttribute('aria-label');
+            if (dataValue === correctAnswer || ariaLabel === correctAnswer) {
+              div.click();
+              console.log('  Clicked on:', correctAnswer);
+              break;
+            }
+          }
         } catch (error) {
           console.error('  Error calling Gemini API:', error);
         }
