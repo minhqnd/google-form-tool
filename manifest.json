@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Google Form Extractor",
+  "name": "Google Form moi supervip",
   "version": "1.0",
-  "description": "Extract questions and options from Google Forms and log to console",
+  "description": "moimoi deptrai dinh vcl hihi",
   "permissions": ["activeTab"],
   "content_scripts": [
     {
