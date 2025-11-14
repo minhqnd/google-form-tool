@@ -3,7 +3,10 @@
   "name": "Google Form moi supervip",
   "version": "1.0",
   "description": "moimoi deptrai dinh vcl hihi",
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "storage"],
+  "action": {
+    "default_popup": "popup.html"
+  },
   "content_scripts": [
     {
       "matches": ["https://docs.google.com/forms/*"],

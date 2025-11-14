@@ -1,6 +1,13 @@
 // content.js - Extract questions and options from Google Form, then send to Gemini API
 
-const GEMINI_API_KEY = 'AIzaSyD1v1RYEGcuqIB6Z0D9bf5DYeit1INl5RU'; // Replace with your actual API key
+let GEMINI_API_KEY = ''; // Default, will be overridden
+
+// Load API key from storage
+chrome.storage.sync.get(['apiKey'], (result) => {
+  if (result.apiKey) {
+    GEMINI_API_KEY = result.apiKey;
+  }
+});
 
 // Selectors
 const QUESTION_TITLE_SELECTOR = 'span.M7eMe';
@@ -152,6 +159,21 @@ async function processQuestion(container, index) {
   }
   console.log('---');
 }
+
+// Process all questions
+async function processAllQuestions() {
+  const containers = document.querySelectorAll(CONTAINER_SELECTOR);
+  for (let i = 0; i < containers.length; i++) {
+    await processQuestion(containers[i], i);
+  }
+}
+
+// Listen for messages from popup
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'solveAll') {
+    processAllQuestions();
+  }
+});
 
 // Setup event listeners
 function setupEventListeners() {
