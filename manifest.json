@@ -1,16 +1,23 @@
 {
   "manifest_version": 3,
-  "name": "Google Form moi supervip",
-  "version": "1.0",
-  "description": "moimoi deptrai dinh vcl hihi",
+  "name": "Google Forms AI Assistant",
+  "version": "1.0.0",
+  "description": "Automatically fill Google Forms using AI. Supports multiple choice, checkboxes, short answers, and long answers. Powered by Gemini API.",
+  "author": "minhqnd",
+  "homepage_url": "https://github.com/minhqnd",
   "permissions": ["activeTab", "storage"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_title": "Google Forms AI Assistant"
   },
   "content_scripts": [
     {
       "matches": ["https://docs.google.com/forms/*"],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "run_at": "document_idle"
     }
-  ]
+  ],
+  "icons": {
+
+  }
 }
